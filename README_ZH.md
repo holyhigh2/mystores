@@ -26,11 +26,13 @@ MyStore.set('c',new Date())
 MyStore.set('d',-123)
 MyStore.set('e',null)
 MyStore.set('f',Infinity)
+MyStore.set('blob',new window.Blob(...))// for indexed only
 
 //2. 读取缓存
 MyStore.get('a')//获取到对象
-MyStore.set('b',/123/)//获取到正则
-MyStore.set('c',new Date())//获取到date对象
+MyStore.get('b')//获取到正则对象
+MyStore.get('c')//获取到date对象
+MyStore.get('blob')///获取到blob对象
 
 //3. 获取所有key
 MyStore.keys()
@@ -38,7 +40,7 @@ MyStore.keys()
 
 ## API
 ```ts
-import Stores from 'mystores'
+import Store from 'mystores'
 
 //支持的store类型
 Store.type = 'store'|'cookie'|'indexed';

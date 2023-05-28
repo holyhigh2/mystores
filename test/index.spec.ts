@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "fake-indexeddb/auto";
-import MyStore from '../src/index'
+import MyStore from './index'
 
 MyStore.set('a',{a:1})
 MyStore.set('b',/123/)

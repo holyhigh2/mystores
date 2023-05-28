@@ -1,4 +1,6 @@
-import { isString,isDate,isNumber,isObject,isBoolean,isFunction,isUndefined,isRegExp, isNull, isNaN, each, startsWith, map, flatMap } from "@holyhigh/func.js";
+import { each, flatMap } from "myfx/collection";
+import { startsWith } from "myfx/string";
+import { isString,isDate,isNumber,isObject,isBoolean,isFunction,isUndefined,isRegExp, isNull, isNaN} from "myfx/is";
 
 /**
  * 提供基于localStorage/sessionStorage/cookie/indexedDB的统一存储API，
@@ -313,7 +315,6 @@ class Indexed implements IStore{
     request.onupgradeneeded = function(e){
       const db = GlobalDB = that.#db = this.result;
       db.createObjectStore("storage", {keyPath: KEY_PATH});
-      console.log('xxx')
     }
     request.onsuccess = function(e) {
       GlobalDB = that.#db = this.result;
