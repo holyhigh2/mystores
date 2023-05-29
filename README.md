@@ -1,4 +1,3 @@
-
 # MyStores
 ![npm](https://img.shields.io/npm/v/mystores)
 ![NPM](https://img.shields.io/npm/l/mystores)
@@ -19,50 +18,61 @@ npm i mystores
 
 ## Usage
 ```js
-//1. write store
-MyStore.set('a',{a:1})
-MyStore.set('b',/123/)
-MyStore.set('c',new Date())
-MyStore.set('d',-123)
-MyStore.set('e',null)
-MyStore.set('f',Infinity)
-MyStore.set('blob',new window.Blob(...))// for indexed only
+//1. Write store
+myss.set('a',{a:1})
+myss.set('b',/123/)
+myss.set('c',new Date())
+myss.set('d',-123)
+myss.set('e',null)
+myss.set('f',Infinity)
+myss.set('blob',new window.Blob(...))// for indexed only
 
-//2. read store
-MyStore.get('a')//get Object
-MyStore.get('b')//get RegExp
-MyStore.get('c')//get Date
-MyStore.get('blob')//get blob
+//2. Read store
+myss.get('a')//get Object
+myss.get('b')//get RegExp
+myss.get('c')//get Date
+myss.get('blob')//get blob
 
-//3. get all keys
-MyStore.keys()
+//3. Get all keys
+myss.keys()
+
+//4. Multi instance
+const Cookie = myss.getStore('cookie')
+const InDB = myss.getStore('indexed')
+
+Cookie.set('a',{a:1})
+Cookie.set('b',/123/)
+Cookie.set('c',new Date())
+InDB.set('d',-123)
+InDB.set('e',null)
+InDB.set('f',Infinity)
 ```
 
 ## API
 ```ts
-import Store from 'mystores'
+import myss from 'mystores'
 
 //Set store type. Default 'store'
-Store.type = 'store'|'cookie'|'indexed';
+myss.type = 'store'|'cookie'|'indexed'
 
 //The 'options' is only supported when storeType is set to 'cookie'
-Store.set(key:string,value:any,expires?:number,options?:{path:string,domain?:string,secure:boolean}):boolean|Promise<boolean>
+myss.set(key:string,value:any,expires?:number,options?:{path:string,domain?:string,secure:boolean}):boolean | Promise<boolean>
 
 //Get store
-Store.get(key: string):any|Promise<any>
+myss.get(key: string):any|Promise<any>
 
 //The return value will always be 'null' when storeType is set to 'indexed' 
-Store.getString(key: string):string|null
+myss.getString(key: string):string | null
 
-Store.remove(key:string):boolean|Promise<boolean>
+myss.remove(key:string):boolean | Promise<boolean>
 
-Store.has(key:string):boolean|Promise<boolean>
+myss.has(key:string):boolean | Promise<boolean>
 
 //Get all keys
-Store.keys():string[] | Promise<string[]>
+myss.keys():string[] | Promise<string[]>
 
 //Clear all
-Store.clear()
+myss.clear()
 ```
 *** All return values of functions will be changed to Promise when storeType is set to 'indexed' ***
 

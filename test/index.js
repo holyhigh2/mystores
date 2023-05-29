@@ -1,5 +1,5 @@
 /**
-   * mystores v0.1.1
+   * mystores v0.1.2
    * A unified web storage interface for localStorage/sessionStorage/cookie/indexDB/...
    * @holyhigh2
    * https://github.com/holyhigh2/mystores

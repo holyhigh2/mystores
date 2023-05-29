@@ -17,7 +17,7 @@
     "localStorage",
     "sessionStorage",
     "cookie",
-    "indexDB"
+    "indexedDB"
   ],
   "scripts": {
     "test": "rollup --config rollup.config.test.js --bundleConfigAsCjs & jest --no-cache --verbose test/index.spec.ts",
