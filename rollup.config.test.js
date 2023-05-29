@@ -3,8 +3,6 @@ const banner2 = require('rollup-plugin-banner2')
 const copy = require('rollup-plugin-copy')
 const json = require('@rollup/plugin-json')
 const typescript = require('rollup-plugin-typescript2')
-const clear = require('rollup-plugin-clear')
-const terser = require('@rollup/plugin-terser')
 const pkg = require('./package.json')
 const nodeResolve = require('@rollup/plugin-node-resolve')
 

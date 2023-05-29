@@ -51,7 +51,7 @@ export default [
   },
   {
     input: './src/index.ts',
-    external: ['@holyhigh/func.js'],
+    external: ['myfx'],
     plugins: [
       typescript(),
       nodeResolve(),
@@ -82,7 +82,7 @@ export default [
       }),
     ],
     output: [
-      {file: 'dist/index.js', format:'umd', name:'myss', sourcemap: true,//plugins:[terser()]
+      {file: 'dist/index.js', format:'umd', name:'myss', sourcemap: true,plugins:[terser()]
     },
     ],
   }
