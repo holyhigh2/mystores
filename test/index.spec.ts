@@ -2,87 +2,91 @@
  * @jest-environment jsdom
  */
 import "fake-indexeddb/auto";
-import MyStore from './index'
+import myss,{ StoreType } from './index'
 
-MyStore.set('a',{a:1})
-MyStore.set('b',/123/)
-MyStore.set('c',new Date())
-MyStore.set('d',-123)
-MyStore.set('e',null)
-MyStore.set('f',Infinity)
+myss.set('a',{a:1})
+myss.set('b',/123/)
+myss.set('c',new Date())
+myss.set('d',-123)
+myss.set('e',null)
+myss.set('f',Infinity)
 
 ///////////////////////////////////////////// local store
 test('local store',()=>{
-    expect(MyStore.get('a')).toBeInstanceOf(Object);
-    expect(MyStore.get('b')).toBeInstanceOf(RegExp);
-    expect(MyStore.get('c')).toBeInstanceOf(Date);
-    expect(MyStore.get('d')).toBe(-123);
-    expect(MyStore.get('e')).toBeNull();
-    expect(MyStore.get('f')).toBe(Infinity);
+    expect(myss.get('a')).toBeInstanceOf(Object);
+    expect(myss.get('b')).toBeInstanceOf(RegExp);
+    expect(myss.get('c')).toBeInstanceOf(Date);
+    expect(myss.get('d')).toBe(-123);
+    expect(myss.get('e')).toBeNull();
+    expect(myss.get('f')).toBe(Infinity);
 
-    console.log(MyStore.keys(),'local')
+    console.log(myss.keys(),'local')
 })
 
 ///////////////////////////////////////////// cookie store
 test('cookie store',()=>{
-    MyStore.type = 'cookie'
-    MyStore.set('a',{a:1})
-    MyStore.set('b',/123/)
-    MyStore.set('c',new Date())
-    MyStore.set('d',-123)
-    MyStore.set('e',null)
-    MyStore.set('f',Infinity)
+    myss.options({
+        type:StoreType.COOKIE
+    })
+    myss.set('a',{a:1})
+    myss.set('b',/123/)
+    myss.set('c',new Date())
+    myss.set('d',-123)
+    myss.set('e',null)
+    myss.set('f',Infinity)
 
 
-    expect(MyStore.get('a')).toBeInstanceOf(Object);
-    expect(MyStore.get('b')).toBeInstanceOf(RegExp);
-    expect(MyStore.get('c')).toBeInstanceOf(Date);
-    expect(MyStore.get('d')).toBe(-123);
-    expect(MyStore.get('e')).toBeNull();
-    expect(MyStore.get('f')).toBe(Infinity);
+    expect(myss.get('a')).toBeInstanceOf(Object);
+    expect(myss.get('b')).toBeInstanceOf(RegExp);
+    expect(myss.get('c')).toBeInstanceOf(Date);
+    expect(myss.get('d')).toBe(-123);
+    expect(myss.get('e')).toBeNull();
+    expect(myss.get('f')).toBe(Infinity);
 
-    console.log(MyStore.keys(),'cookie')
+    console.log(myss.keys(),'cookie')
 })
 
 ///////////////////////////////////////////// Indexed store
 test('indexed store',async ()=>{
-    MyStore.type = 'indexed'
+    myss.options({
+        type:StoreType.INDEXED
+    })
     
-    MyStore.set('a',{a:1})
-    MyStore.set('b',/123/)
-    MyStore.set('c',new Date())
-    MyStore.set('d',-123)
-    MyStore.set('e',null)
-    MyStore.set('f',Infinity)
+    myss.set('a',{a:1})
+    myss.set('b',/123/)
+    myss.set('c',new Date())
+    myss.set('d',-123)
+    myss.set('e',null)
+    myss.set('f',Infinity)
 
-    expect(await MyStore.get('a')).toBeInstanceOf(Object);
-    expect(await MyStore.get('b')).toBeInstanceOf(RegExp);
-    expect(await MyStore.get('c')).toBeInstanceOf(Date);
-    expect(await MyStore.get('d')).toBe(-123);
-    expect(await MyStore.get('e')).toBeNull();
-    expect(await MyStore.get('f')).toBe(Infinity);
+    expect(await myss.get('a')).toBeInstanceOf(Object);
+    expect(await myss.get('b')).toBeInstanceOf(RegExp);
+    expect(await myss.get('c')).toBeInstanceOf(Date);
+    expect(await myss.get('d')).toBe(-123);
+    expect(await myss.get('e')).toBeNull();
+    expect(await myss.get('f')).toBe(Infinity);
 
-    console.log(await MyStore.keys(),'indexed')
+    console.log(await myss.keys(),'indexed')
 })
 
 ///////////////////////////////////////////// Multi instance
 test('Multi instance',async ()=>{
-    const Cookie = MyStore.getStore('cookie')
-    const Store = MyStore.getStore('indexed')
+    const Cookie = myss.getStore(StoreType.COOKIE)
+    const Indexed = myss.getStore(StoreType.INDEXED)
     
     Cookie.set('a',{a:1})
     Cookie.set('b',/123/)
     Cookie.set('c',new Date())
-    Store.set('d',-123)
-    Store.set('e',null)
-    Store.set('f',Infinity)
+    Indexed.set('d',-123)
+    Indexed.set('e',null)
+    Indexed.set('f',Infinity)
 
     expect(Cookie.get('a')).toBeInstanceOf(Object);
     expect(Cookie.get('b')).toBeInstanceOf(RegExp);
     expect(Cookie.get('c')).toBeInstanceOf(Date);
-    expect(await Store.get('d')).toBe(-123);
-    expect(await Store.get('e')).toBeNull();
-    expect(await Store.get('f')).toBe(Infinity);
+    expect(await Indexed.get('d')).toBe(-123);
+    expect(await Indexed.get('e')).toBeNull();
+    expect(await Indexed.get('f')).toBe(Infinity);
 
-    console.log(Cookie.keys(),await Store.keys())
+    console.log(Cookie.keys(),await Indexed.keys())
 })

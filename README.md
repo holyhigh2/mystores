@@ -50,10 +50,12 @@ InDB.set('f',Infinity)
 
 ## API
 ```ts
-import myss from 'mystores'
+import myss,{StoreType} from 'mystores'
 
-//Set store type. Default 'store'
-myss.type = 'store'|'cookie'|'indexed'
+//Set store type. Default 'local'
+myss.options({
+    type:StoreType.COOKIE
+})
 
 //The 'options' is only supported when storeType is set to 'cookie'
 myss.set(key:string,value:any,expires?:number,options?:{path:string,domain?:string,secure:boolean}):boolean | Promise<boolean>

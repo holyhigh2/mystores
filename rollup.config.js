@@ -46,7 +46,7 @@ export default [
       }),
     ],
     output: [
-      {file: 'dist/index.esm.js', format: 'esm', sourcemap: true,plugins:[terser()]},
+      {file: 'dist/index.esm.js', format: 'esm'},
     ],
   },
   {
@@ -82,7 +82,7 @@ export default [
       }),
     ],
     output: [
-      {file: 'dist/index.js', format:'umd', name:'myss', sourcemap: true,plugins:[terser()]
+      {file: 'dist/index.js', format:'umd', name:'myss', sourcemap: false,plugins:[terser()]
     },
     ],
   }

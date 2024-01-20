@@ -39,10 +39,12 @@ myss.keys()
 
 ## API
 ```ts
-import myss from 'mystores'
+import myss,{StoreType} from 'mystores'
 
 //支持的store类型
-myss.type = 'store'|'cookie'|'indexed';
+myss.options({
+    type:StoreType.COOKIE
+})
 
 //设置缓存。options参数仅在type为cookie时支持
 myss.set(key:string,value:any,expires?:number,options?:{path:string,domain?:string,secure:boolean}):boolean|Promise<boolean>
